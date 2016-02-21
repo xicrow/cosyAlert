@@ -13,14 +13,14 @@ Configuration can be set globally or per instance.
 `$.cosyAlert.configuration`
 
 | Option | Type | Default | Description |
-| :- | :- | :- | :- |
+| :--- | :--- | :--- | :--- |
 | defaultType | string | 'alert' | The default type for alerts |
 | useQueue | boolean | false | Enable/disable queue for alerts |
 
 `$.cosyAlert.configurationAlert`
 
 | Option | Type | Default | Description |
-| :- | :- | :- | :- |
+| :--- | :--- | :--- | :--- |
 | container | null/string | null | jQuery selector for custom container |
 | vPos | string | 'top' | Vertical position (top, middle, bottom) |
 | hPos | string | 'center' | Horizontal position (left, center, right) |
