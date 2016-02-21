@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>jQuery.cosyAlert</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<style type="text/css">
+			body {
+				font-weight: normal;
+				font-size: 13px;
+				font-family: Tahoma, Geneva, sans-serif;
+			}
+			pre {
+				margin: 0;
+				padding: 5px;
+				background-color: #F6F6F6;
+				border: 1px solid #DDDDDD;
+			}
+			code {
+				font-family: "Courier New", Courier, monospace;
+			}
+			table {
+				width: 600px;
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+			table th {
+				padding: 8px 5px;
+				border-bottom: 1px solid #AAAAAA;
+			}
+			table td {
+				padding: 8px 5px;
+				border-bottom: 1px solid #DDDDDD;
+			}
+			table td:first-child {
+				width: 200px;
+			}
+			table tr:nth-child(odd) td {
+				background-color: #FFFFFF;
+			}
+			table tr:nth-child(even) td {
+				background-color: #F9F9F9;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="../src/cosyAlert.min.css"/>
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="../src/cosyAlert.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				queueUpdateStatus();
+			});
+
+			function queueUpdateStatus() {
+				$('#queue-status').html(($.cosyAlert.configuration.useQueue ? 'enabled' : 'disabled'));
+			}
+			function queueEnable() {
+				$.cosyAlert.configuration.useQueue = true;
+				queueUpdateStatus();
+			}
+			function queueDisable() {
+				$.cosyAlert.configuration.useQueue = false;
+				queueUpdateStatus();
+			}
+
+			$.cosyAlert.configuration = {
+				defaultType: 'alert',
+				useQueue   : false
+			};
+			$.cosyAlert.configurationAlert = {
+				container     : null,
+				vPos          : 'top',
+				hPos          : 'center',
+				autoHide      : true,
+				autoHideTime  : 4000,
+				showTime      : 400,
+				hideTime      : 600,
+				onShowComplete: null,
+				onHideComplete: null
+			};
+		</script>
+	</head>
+
+	<body>
+		<h1>cosyAlert</h1>
+
+		<h2>Examples</h2>
+		<a href="javascript:void(0);" onclick="cosyAlert('Default alert');">Default</a>
+		<br/>
+		<pre><code>cosyAlert('Default alert');</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('First alert', 'notice', function(){ cosyAlert('Second alert', 'success'); });">Chained alerts using callback function</a>
+		<br/>
+		<pre><code>cosyAlert('First alert', 'notice', function(){ cosyAlert('Second alert', 'success'); });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('No auto hide', 'notice', { autoHide : false });">No auto hide</a>
+		<br/>
+		<pre><code>cosyAlert('No auto hide', 'notice', { autoHide : false });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('Slow show and hide time', 'notice', { showTime : 1000, hideTime : 1000 });">Show and hide time</a>
+		<br/>
+		<pre><code>cosyAlert('Slow show and hide time', 'notice', { showTime : 1000, hideTime : 1000 });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('Custom container', 'notice', {container : '#place-for-mr-special'});">Custom container</a>
+		<br/>
+		<div id="place-for-mr-special"></div>
+		<pre><code>cosyAlert('Custom container', 'notice', { container : '#place-for-mr-special' });</code></pre>
+
+		<h2>Options</h2>
+		<p><strong>Queue</strong> (<span id="queue-status"></span>)</p>
+		<p>If enabled only one alert will be shown/hidden at a time.</p>
+		<a href="javascript:void(0);" onclick="queueEnable();">Enable queue</a>
+		<br/>
+		<pre><code>$.cosyAlert.configuration.useQueue = true;</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="queueDisable();">Disable queue</a>
+		<br/>
+		<pre><code>$.cosyAlert.configuration.useQueue = false;</code></pre>
+
+		<p><strong>Types</strong></p>
+		<a href="javascript:void(0);" onclick="cosyAlert('<strong>Alert</strong><br />I\'m gonna tell you something...', 'alert');">Alert</a>
+		<br/>
+		<pre><code>cosyAlert('&lt;strong&gt;Alert&lt;/strong&gt;&lt;br /&gt;I\'m gonna tell you something...', 'alert');</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('<strong>Notice</strong><br />Come closer, listen up...', 'notice');">Notice</a>
+		<br/>
+		<pre><code>cosyAlert('&lt;strong&gt;Notice&lt;/strong&gt;&lt;br /&gt;Come closer, listen up...', 'notice');</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('<strong>Success</strong><br />You have done som successfull things...', 'success');">Success</a>
+		<br/>
+		<pre><code>cosyAlert('&lt;strong&gt;Success&lt;/strong&gt;&lt;br /&gt;You have done som successfull things...', 'success');</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('<strong>Error</strong><br />But you are prone to errors !', 'error');">Error</a>
+		<pre><code>cosyAlert('&lt;strong&gt;Error&lt;/strong&gt;&lt;br /&gt;But you are prone to errors !', 'error');</code></pre>
+
+		<p><strong>Positions</strong></p>
+		<a href="javascript:void(0);" onclick="cosyAlert('top left', { vPos : 'top', hPos : 'left' });">top left</a>
+		<br/>
+		<pre><code>cosyAlert('top left', { vPos : 'top', hPos : 'left' });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('top center', { vPos : 'top', hPos : 'center' });">top center</a>
+		<br/>
+		<pre><code>cosyAlert('top center', { vPos : 'top', hPos : 'center' });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('top right', { vPos : 'top', hPos : 'right' });">top right</a>
+		<br/>
+		<pre><code>cosyAlert('top right', { vPos : 'top', hPos : 'right' });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('middle left', { vPos : 'middle', hPos : 'left' });">middle left</a>
+		<br/>
+		<pre><code>cosyAlert('middle left', { vPos : 'middle', hPos : 'left' });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('middle center', { vPos : 'middle', hPos : 'center' });">middle center</a>
+		<br/>
+		<pre><code>cosyAlert('middle center', { vPos : 'middle', hPos : 'center' });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('middle right', { vPos : 'middle', hPos : 'right' });">middle right</a>
+		<br/>
+		<pre><code>cosyAlert('middle right', { vPos : 'middle', hPos : 'right' });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('bottom left', { vPos : 'bottom', hPos : 'left' });">bottom left</a>
+		<br/>
+		<pre><code>cosyAlert('bottom left', { vPos : 'bottom', hPos : 'left' });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('bottom center', { vPos : 'bottom', hPos : 'center' });">bottom center</a>
+		<br/>
+		<pre><code>cosyAlert('bottom center', { vPos : 'bottom', hPos : 'center' });</code></pre>
+		<br/>
+		<a href="javascript:void(0);" onclick="cosyAlert('bottom right', { vPos : 'bottom', hPos : 'right' });">bottom right</a>
+		<br/>
+		<pre><code>cosyAlert('bottom right', { vPos : 'bottom', hPos : 'right' });</code></pre>
+	</body>
+</html>
